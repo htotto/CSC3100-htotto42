@@ -6,28 +6,28 @@
     <title>Registration Page</title>
     <link href="CSS/lib/bootstrap.min (3).css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body class="bg-lightgrey">
     <div class="col-10 offset-1 card mt-5 text-black">
         <div class="card-body">
             <h1>Registration Page</h1>
             <form class="p-3">
-                <label for="txtFirstName" class="form-label">First Name</label>
-                <input id="txtFirstName" placeholder="FirstName" class="form-control" aria-label="First Name">
+                <label for="txtFirstName" class="form-label mt-3">First Name *</label>
+                <input id="txtFirstName" placeholder="E.g, John" type="text" class="form-control" aria-label="First Name" aria-required="true">
         
-                <label for="txtLastName" class="form-label">Last Name</label>
-                <input id="txtLastName" type="text" class="form-control" aria-label="Last Name">
+                <label for="txtLastName" class="form-label mt-3">Last Name *</label>
+                <input id="txtLastName" placeholder="E.g, Smith" type="text" class="form-control" aria-label="Last Name" aria-required="true">
 
-                <label for="txtStreetAddress1" class="form-label">Street Address 1</label>
-                <input id="txtStreetAddress1" type="text" class="form-control" aria-label="Street Address 1">
+                <label for="txtStreetAddress1" class="form-label mt-3">Street Address 1 *</label>
+                <input id="txtStreetAddress1" placeholder="Street Address 1" type="text" class="form-control" aria-label="Street Address 1" aria-required="true">
 
-                <label for="txtStreetAddress2" class="form-label">Street Address 2</label>
-                <input id="txtStreetAddress2" type="text" class="form-control" aria-label="Street Address 2">
+                <label for="txtStreetAddress2" class="form-label mt-3">Street Address 2</label>
+                <input id="txtStreetAddress2" placeholder="Street Address 2" type="text" class="form-control" aria-label="Street Address 2">
 
-                <label for="txtCity" class="form-label">City</label>
-                <input id="txtCity" type="text" class="form-control" aria-label="City">
+                <label for="txtCity" class="form-label mt-3">City *</label>
+                <input id="txtCity" placeholder="E.g, Nashville" type="text" class="form-control" aria-label="City" aria-required="true">
 
-                <label for="selectState" class="form-label">State</label>
-                <select id="selectState" placeholder="Alabama" class="form-select" aria-label="State">
+                <label for="selectState" class="form-label mt-3">State *</label>
+                <select id="selectState" placeholder="Choose your State" class="form-select" aria-label="State" aria-required="true">
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -81,17 +81,17 @@
                     <option value="WY">Wyoming</option>
                 </select>
                 
-                <label for="txtZip" class="form-label">Zip Code</label>
-                <input id="txtZip" type="text" class="form-control" aria-label="Zip Code">
+                <label for="txtZip" class="form-label mt-3">Zip Code *</label>
+                <input id="txtZip" placeholder="E.g, 37184" type="text" class="form-control" aria-label="Zip Code" aria-required="true">
 
-                <label for="telPhoneNum" class="form-label">Phone Number</label>
-                <input id="telPhoneNum" type="tel" class="form-control" aria-label="Phone Number">
+                <label for="telPhoneNum" class="form-label mt-3">Phone Number</label>
+                <input id="telPhoneNum" placeholder="E.g, 111-222-3333" type="tel" class="form-control" aria-label="Phone Number">
 
-                <label for="txtEmail" class="form-label">Email</label>
-                <input id="txtEmail" type="email" class="form-control" aria-label="Email">
+                <label for="txtEmail" class="form-label mt-3">Email *</label>
+                <input id="txtEmail" placeholder="E.g, jsmith123@gmail.com" type="email" class="form-control" aria-label="Email" aria-required="true">
         
-                <label for="txtPassword" class="form-label">Password</label>
-                <input id="txtPassword" type="password" class="form-control" aria-label="Password">
+                <label for="txtPassword" class="form-label mt-3">Password *</label>
+                <input id="txtPassword" placeholder="E.g, hC1Sr%n\9='8" type="password" class="form-control" aria-label="Password" aria-required="true">
         
                 <button id="btnSubmit" type="button" class="btn btn-primary col-12 mt-2">Submit</button>
             </form>
