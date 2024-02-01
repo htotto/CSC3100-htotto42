@@ -1,15 +1,2 @@
-/* Ensure form elements are easily targetable on touch devices */
-.form-control {
-    min-height: 44px; /* Adequate touch target height */
-    width: auto; /* Adjust width based on parent container to ensure responsiveness */
-    padding: 10px; /* Sufficient padding for easy interaction */
-  }
-  
-  /* Responsive design adjustments */
-  @media (max-width: 768px) { /* Adjust breakpoint as needed */
-    .form-label, .form-control {
-      width: 100%; /* Full-width on smaller screens for better readability */
-      font-size: 16px; /* Larger font size for better readability on small screens */
-    }
-  }
+
   

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
     <link href="CSS/lib/bootstrap.min (3).css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body class="bg-lightgrey">
     <div class="col-10 offset-1 card mt-5 text-black">
@@ -21,7 +22,7 @@
                 <input id="txtStreetAddress1" placeholder="Street Address 1" type="text" class="form-control" aria-label="Street Address 1" aria-required="true">
 
                 <label for="txtStreetAddress2" class="form-label mt-3">Street Address 2</label>
-                <input id="txtStreetAddress2" placeholder="Street Address 2" type="text" class="form-control" aria-label="Street Address 2">
+                <input id="txtStreetAddress2" placeholder="Street Address 2" type="text" class="form-control" aria-label="Street Address 2" aria-required="false">
 
                 <label for="txtCity" class="form-label mt-3">City *</label>
                 <input id="txtCity" placeholder="E.g, Nashville" type="text" class="form-control" aria-label="City" aria-required="true">
@@ -85,7 +86,7 @@
                 <input id="txtZip" placeholder="E.g, 37184" type="text" class="form-control" aria-label="Zip Code" aria-required="true">
 
                 <label for="telPhoneNum" class="form-label mt-3">Phone Number</label>
-                <input id="telPhoneNum" placeholder="E.g, 111-222-3333" type="tel" class="form-control" aria-label="Phone Number">
+                <input id="telPhoneNum" placeholder="E.g, 111-222-3333" type="tel" class="form-control" aria-label="Phone Number" aria-required="false">
 
                 <label for="txtEmail" class="form-label mt-3">Email *</label>
                 <input id="txtEmail" placeholder="E.g, jsmith123@gmail.com" type="email" class="form-control" aria-label="Email" aria-required="true">
@@ -94,10 +95,93 @@
                 <input id="txtPassword" placeholder="E.g, hC1Sr%n\9='8" type="password" class="form-control" aria-label="Password" aria-required="true">
         
                 <button id="btnSubmit" type="button" class="btn btn-primary col-12 mt-2">Submit</button>
+                <button id="btnReset" type="button" class="btn btn-tertiary col-12 mt-1">Reset Form</button>
             </form>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="CSS/lib/bootstrap.min.css" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $('#selectState').select2()
+    </script>
+
+    <script>
+        
+        $("#btnReset").on('click',function(){
+            $('#txtFirstName').val('');
+            $('#txtLastName').val('');
+            $('#txtStreetAddress1').val('');
+            $('#txtStreetAddress2').val('');
+            $('#txtCity').val('');
+            $('#txtState').val('');
+            $('#txtZip').val('');
+            $('#telPhoneNum').val('');
+            $('#txtEmail').val('');
+            $('#txtPassword').val('');
+        })
+        
+        $("#btnSubmit").on('click',function(){
+            let strFirstName=$('#txtFirstName').val();
+            let strLastName=$('#txtLastName').val();
+            let strStreetAddress1=$('#txtStreetAddress1').val();
+            let strCity=$('#txtCity').val();
+            let strZip=$('#txtZip').val();
+            let strEmail=$('#txtEmail').val();
+            let strPassword=$('#txtPassword').val();
+            
+            
+            let blnError = false;
+            let strErrorMessage = '';
+
+            if(strFirstName.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'First Name cannot be blank.  '
+            }
+            if(strLastName.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'Last Name cannot be blank.  '
+            }
+            if(strStreetAddress1.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'Street Address 1 cannot be blank.  '
+            }
+            if(strCity.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'City cannot be blank.  '
+            }
+            if(strZip.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'Zip Code cannot be blank.  '
+            }
+            if(strEmail.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'Email cannot be blank.  '
+            }
+            if(strPassword.length < 1){
+                blnError = true;
+                strErrorMessage = strErrorMessage + 'Password cannot be blank.  '
+            }
+
+            if(blnError==true) {
+                console.log(strErrorMessage);
+                Swal.fire({
+                    title: 'Oops?',
+                    text: strErrorMessage,
+                    icon: 'error',
+                    })
+            } else {
+                console.log('No errors found');
+            }
+        })
+    </script>
+
+    <script>
+        document.getElementById('btnReset').style.backgroundColor = '#f0f0f0';
+    </script>
+
+
 </body>
 </html>
