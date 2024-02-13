@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Characters</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body class="bg-dark">
+    <div id="divMain" class="col-12 vh-100 d-flex justify-content-center align-items-center text-black">
+        <div class="card col-12 col-lg-9">
+            <div class="card-header">
+                <h3 class="text-center">Merchandise Order Form</h3>
+            </div>
+            <div class="card-body">
+                <form>
+                    <label for="txtFirstName" class="form-label mt-3">First Name *</label>
+                    <input id="txtFirstName" placeholder="E.g, John" type="text" class="form-control" aria-label="First Name" aria-required="true">
+            
+                    <label for="txtLastName" class="form-label mt-3">Last Name *</label>
+                    <input id="txtLastName" placeholder="E.g, Smith" type="text" class="form-control" aria-label="Last Name" aria-required="true">
+    
+                    <label for="txtEmail" class="form-label mt-3">Email *</label>
+                    <input id="txtEmail" placeholder="E.g, jsmith123@gmail.com" type="email" class="form-control" aria-label="Email" aria-required="true">
+    
+                    <label for="txtShippingAddress" class="form-label mt-3">Shipping Address *</label>
+                    <input id="txtBillingAddress" placeholder="Shipping Address" type="text" class="form-control" aria-label="Shipping Address" aria-required="true">
+    
+                    <label for="txtBillingAddress" class="form-label mt-3">Billing Address</label>
+                    <input id="txtBillingAddress" placeholder="Billing Address" type="text" class="form-control" aria-label="Billing Address" aria-required="true">
+    
+                    <label for="telPhoneNum" class="form-label mt-3">Phone Number</label>
+                    <input id="telPhoneNum" placeholder="E.g, 111-222-3333" type="tel" class="form-control" aria-label="Phone Number" aria-required="True">
+                
+                    <label class="form-label mt-3">Clothing Tops</label>
+                    <select class="form-control" id="cboTop">
+                        <option></option>
+                    </select>
+
+                    <label class="form-label mt-3">Clothing Bottoms</label>
+                    <select class="form-control" id="cboBottom">
+                        <option></option>
+                    </select>
+
+                    <label class="form-label mt-3">Clothing Shoes</label>
+                    <select class="form-control" id="cboShoe">
+                        <option></option>
+                    </select>
+
+                    <hr />
+                    <button class="btn btn-primary col-12" type="button" id="btnSearch">Order</button>
+                </form>
+                <div id="divDetails">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        var arrTops;
+        var arrBottoms;
+        var arrShoes;
+        var intSearched = 0;
+
+        $.getJSON('https://www.swollenhippo.com/getTopsByAPIKey.php?APIKey=Mickey2024%21',function(result){
+                //console.log(result);
+                arrTops = result;
+                //console.log(arrCharacters[0].FirstName);
+
+                arrTops.forEach(function(top){
+                    //console.log(character.FirstName);
+                    let strHTML = '<option value="' + top.StyleID + '">' + top.Description +  '</option>';
+                    $('#cboTop').append(strHTML);
+                    
+                }) 
+        })
+        
+        $.getJSON('https://www.swollenhippo.com/getBottomsByAPIKey.php?APIKey=Mickey2024%21',function(result){
+                //console.log(result);
+                arrBottoms = result;
+                //console.log(arrCharacters[0].FirstName);
+
+                arrBottoms.forEach(function(bottom){
+                    //console.log(character.FirstName);
+                    let strHTML = '<option value="' + bottom.StyleID + '">' + bottom.Description +  '</option>';
+                    $('#cboBottom').append(strHTML);
+                    
+                }) 
+        })
+
+        $.getJSON('https://www.swollenhippo.com/getShoesByAPIKey.php?APIKey=Mickey2024%21',function(result){
+                //console.log(result);
+                arrShoes = result;
+                //console.log(arrCharacters[0].FirstName);
+
+                arrShoes.forEach(function(shoe){
+                    //console.log(character.FirstName);
+                    let strHTML = '<option value="' + shoe.StyleID + '">' + shoe.Description +  '</option>';
+                    $('#cboShoe').append(strHTML);
+                    
+                }) 
+        })
+
+        $(document).on('click', '.remove-order-sheet', function() {
+            $(this).closest('.card').remove();
+        });
+
+
+        $('#btnSearch').on('click', function() {
+            // Capture form values
+            let firstName = $('#txtFirstName').val();
+            let lastName = $('#txtLastName').val();
+            let email = $('#txtEmail').val();
+            let shippingAddress = $('#txtBillingAddress').val(); 
+            let billingAddress = $('#txtStreetAddress2').val();
+            let phoneNumber = $('#telPhoneNum').val();
+            let selectedTop = $('#cboTop option:selected').text();
+            let selectedBottom = $('#cboBottom option:selected').text();
+            let selectedShoe = $('#cboShoe option:selected').text();
+
+            // Log customer details and selections to the console
+            console.log('Order Details:', {
+                FirstName: firstName,
+                LastName: lastName,
+                Email: email,
+                ShippingAddress: shippingAddress,
+                BillingAddress: billingAddress,
+                PhoneNumber: phoneNumber,
+                Top: selectedTop,
+                Bottom: selectedBottom,
+                Shoe: selectedShoe
+            });
+
+            // Build the order sheet and append it to the #divDetails container
+            let orderSheetHTML = `<div class="card my-2"><div class="card-header"><h5>Order Details</h5></div><div class="card-body"><p>First Name: ${firstName}</p><p>Last Name: ${lastName}</p><p>Email: ${email}</p><p>Shipping Address: ${shippingAddress}</p><p>Billing Address: ${billingAddress}</p><p>Phone Number: ${phoneNumber}</p><p>Top: ${selectedTop}</p><p>Bottom: ${selectedBottom}</p><p>Shoe: ${selectedShoe}</p><button type="button" class="btn btn-danger remove-order-sheet">Remove</button></div></div>`;
+            $('#divDetails').append(orderSheetHTML);
+
+            // Scroll to the new order sheet
+            $('#divMain').removeClass('align-items-center').addClass('mt-5');
+            intSearched +=1;
+                if(intSearched > 1){
+                    $('#divMain').removeClass('vh-100')
+                }
+                
+        });
+        
+        </script>
+</body>
+</html>
