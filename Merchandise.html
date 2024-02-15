@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body class="bg-dark">
-    <div id="divMain" class="col-12 vh-200 d-flex justify-content-center align-items-center text-black mt-4">
+    <div id="divMain" class="col-12 vh-200 d-flex justify-content-center align-items-center text-black mt-5">
         <div class="card col-10 col-md-5 col-lg-4">
             <div class="card-header">
                 <h3 class="text-center">Merchandise Order Form</h3>
@@ -68,6 +68,8 @@
 
                     <hr />
                     <button class="btn btn-primary col-12" type="button" id="btnSearch">Order</button>
+                    <button class="btn btn-secondary col-12 mt-2" type="button" id="btnClear">Clear</button>
+                    
                 </form>
                 <div id="divDetails">
 
@@ -123,47 +125,96 @@
                 }) 
         })
 
+        $('#btnClear').on('click',function(){
+            $('#txtFirstName').val('')
+            $('#txtLastName').val('')
+            $('#txtEmail').val('')
+            $('#txtShippingAddress').val('')
+            $('#txtBillingAddress').val('')
+            $('#telPhoneNum').val('')
+            $('#cboTop').val('')
+            $('#cboBottom').val('')
+            $('#cboShoe').val('')
+        })
+
         $(document).on('click', '.remove-order-sheet', function() {
             $(this).closest('.card').remove();
         });
 
 
         $('#btnSearch').on('click', function() {
-            // Capture form values
-            let firstName = $('#txtFirstName').val();
-            let lastName = $('#txtLastName').val();
-            let email = $('#txtEmail').val();
-            let shippingAddress = $('#txtBillingAddress').val(); 
-            let billingAddress = $('#txtStreetAddress2').val();
-            let phoneNumber = $('#telPhoneNum').val();
-            let selectedTop = $('#cboTop option:selected').text();
-            let selectedBottom = $('#cboBottom option:selected').text();
-            let selectedShoe = $('#cboShoe option:selected').text();
+            
+            let strfirstName = $('#txtFirstName').val();
+            let strlastName = $('#txtLastName').val();
+            let stremail = $('#txtEmail').val();
+            let strshippingAddress = $('#txtShippingAddress').val(); 
+            let strbillingAddress = $('#txtBillingAddress').val();
+            let strphoneNumber = $('#telPhoneNum').val();
+            let cboselectedTop = $('#cboTop option:selected').text();
+            let cboselectedBottom = $('#cboBottom option:selected').text();
+            let cboselectedShoe = $('#cboShoe option:selected').text();
 
-            // Log customer details and selections to the console
-            console.log('Order Details:', {
-                FirstName: firstName,
-                LastName: lastName,
-                Email: email,
-                ShippingAddress: shippingAddress,
-                BillingAddress: billingAddress,
-                PhoneNumber: phoneNumber,
-                Top: selectedTop,
-                Bottom: selectedBottom,
-                Shoe: selectedShoe
-            });
+            let blnError = false;
+            let strError = '';
 
-            // Build the order sheet and append it to the #divDetails container
-            let orderSheetHTML = `<div class="card mt-2"><div class="card-header"><h5>Order Details</h5></div><div class="card-body"><p>First Name: ${firstName}</p><p>Last Name: ${lastName}</p><p>Email: ${email}</p><p>Shipping Address: ${shippingAddress}</p><p>Billing Address: ${billingAddress}</p><p>Phone Number: ${phoneNumber}</p><p>Top: ${selectedTop}</p><p>Bottom: ${selectedBottom}</p><p>Shoe: ${selectedShoe}</p><button type="button" class="btn btn-danger remove-order-sheet">Remove</button></div></div>`;
-            $('#divDetails').append(orderSheetHTML);
+            if (strfirstName.length < 1) {
+                blnError = true;
+                strError += '<p>First Name cannot be blank</p>'
+            }
+            if (strlastName.length < 1) {
+                blnError = true;
+                strError += '<p>Last Name cannot be blank</p>'
+            }
+            if (stremail.length < 7) {
+                blnError = true;
+                strError += '<p>Email must be at least 7 characters</p>'
+            } else if (!stremail.includes('@')) {
+                blnError = true;
+                strError += '<p>Password must contain an @ symbol</p>'
+            } else if (!stremail.includes('.')) {
+                blnError = true;
+                strError += '<p>Password must contain a . symbol</p>'
+            }
+            if (strshippingAddress < 1) {
+                blnError = true;
+                strError += '<p>Shipping Address cannot be blank</p>'
+            }
+            if (strbillingAddress < 1) {
+                blnError = true;
+                strError += '<p>Billing Address cannot be blank</p>'
+            }
+            if (strphoneNumber < 1) {
+                blnError = true;
+                strError += '<p>PhoneNumber must be 10 numbers</p>'
+            }
+        
+            if (blnError) {
+                Swal.fire({
+                    title: 'Registration Error!',
+                    html: strError,
+                    icon :'error'
+            })
+            } else {
+                console.log('Order Details:', {
+                    FirstName: strfirstName,
+                    LastName: strlastName,
+                    Email: stremail,
+                    ShippingAddress: strshippingAddress,
+                    BillingAddress: strbillingAddress,
+                    PhoneNumber: strphoneNumber,
+                    Top: cboselectedTop,
+                    Bottom: cboselectedBottom,
+                    Shoe: cboselectedShoe
+                });
+                let orderSheetHTML = '<div class="card mt-2"><div class="card-header"><h5>Order Details</h5></div><div class="card-body"><p>First Name: ' + strfirstName + '</p><p>Last Name: '+ strlastName + '</p><p>Email: ' + stremail + '</p><p>Shipping Address: ' + strshippingAddress + '</p><p>Billing Address: ' + strbillingAddress + '</p><p>Phone Number: ' + strphoneNumber + '</p><p>Top: ' + cboselectedTop + '</p><p>Bottom: ' + cboselectedBottom + '</p><p>Shoe: ' + cboselectedShoe + '</p><button type="button" class="btn btn-danger remove-order-sheet">Remove</button></div></div>';
+                $('#divDetails').append(orderSheetHTML);
 
-            // Scroll to the new order sheet
-            $('#divMain').removeClass('align-items-center').addClass('mt-5');
-            intSearched +=1;
-                if(intSearched > 1){
-                    $('#divMain').removeClass('vh-200')
-                }
-                
+                // $('#divMain').removeClass('align-items-center').addClass('mt-5');
+                // intSearched +=1;
+                //     if(intSearched > 1){
+                //         $('#divMain').removeClass('vh-200')
+                //     }
+                } 
         });
         
         </script>
