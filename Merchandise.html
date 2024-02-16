@@ -125,6 +125,7 @@
                 }) 
         })
 
+        // Function to clear the boxes
         $('#btnClear').on('click',function(){
             $('#txtFirstName').val('')
             $('#txtLastName').val('')
@@ -137,6 +138,7 @@
             $('#cboShoe').val('')
         })
 
+        // Found this way to traverse the dom instead of .parent().parent()
         $(document).on('click', '.remove-order-sheet', function() {
             $(this).closest('.card').remove();
         });
@@ -144,6 +146,9 @@
 
         $('#btnSearch').on('click', function() {
             
+            // This part gave some trouble. I tried to do .val() for the select boxes but kept running into
+            // the issue where is would display the StyleID. I fixed this by using the option:selected which
+            // I found in the api.jquery documentation as well as using the .text instead of .val.
             let strfirstName = $('#txtFirstName').val();
             let strlastName = $('#txtLastName').val();
             let stremail = $('#txtEmail').val();
@@ -157,6 +162,7 @@
             let blnError = false;
             let strError = '';
 
+            // Error checking for the sweat alert
             if (strfirstName.length < 1) {
                 blnError = true;
                 strError += '<p>First Name cannot be blank</p>'
@@ -195,6 +201,9 @@
                     icon :'error'
             })
             } else {
+
+                // Found this neat way of displaying information with key values so that it outputs as one object that can expand
+                // in the command line
                 console.log('Order Details:', {
                     FirstName: strfirstName,
                     LastName: strlastName,
@@ -206,8 +215,14 @@
                     Bottom: cboselectedBottom,
                     Shoe: cboselectedShoe
                 });
+
+                // Typing this html on one line kinda sucks
                 let orderSheetHTML = '<div class="card mt-2"><div class="card-header"><h5>Order Details</h5></div><div class="card-body"><p>First Name: ' + strfirstName + '</p><p>Last Name: '+ strlastName + '</p><p>Email: ' + stremail + '</p><p>Shipping Address: ' + strshippingAddress + '</p><p>Billing Address: ' + strbillingAddress + '</p><p>Phone Number: ' + strphoneNumber + '</p><p>Top: ' + cboselectedTop + '</p><p>Bottom: ' + cboselectedBottom + '</p><p>Shoe: ' + cboselectedShoe + '</p><button type="button" class="btn btn-danger remove-order-sheet">Remove</button></div></div>';
                 $('#divDetails').append(orderSheetHTML);
+
+
+                // Took this code from the in class assignments ran into the issue where my page would resize after
+                // there were not more orders. Weirdly enough I went to comment it out and it worked without it
 
                 // $('#divMain').removeClass('align-items-center').addClass('mt-5');
                 // intSearched +=1;
