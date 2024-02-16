@@ -176,10 +176,10 @@
                 strError += '<p>Email must be at least 7 characters</p>'
             } else if (!stremail.includes('@')) {
                 blnError = true;
-                strError += '<p>Password must contain an @ symbol</p>'
+                strError += '<p>Email must contain an @ symbol</p>'
             } else if (!stremail.includes('.')) {
                 blnError = true;
-                strError += '<p>Password must contain a . symbol</p>'
+                strError += '<p>Email must contain a . symbol</p>'
             }
             if (strshippingAddress < 1) {
                 blnError = true;
